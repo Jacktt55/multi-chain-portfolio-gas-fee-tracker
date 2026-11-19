@@ -97,29 +97,29 @@ footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padd
 <body>
 
 <div class="snapbar"><div class="snapbar-in">
-  <span><span class="dot"></span> <b>Snapshot pasar</b> · Kamis, 19 Nov 2026 · 13:44 WIB</span>
-  <div class="ticker" aria-label="Harga snapshot">
-    <span>BTC <b>$64.912</b> <span class="up">+0,07%</span></span>
-    <span>ETH <b>$1.824</b> <span class="up">+0,23%</span></span>
-    <span>BNB <b>$597,73</b> <span class="up">+1,06%</span></span>
-    <span>SOL <b>$74,94</b> <span class="up">+0,04%</span></span>
-    <span>ETH gas <b>0,15 gwei</b></span>
-    <span>BSC gas <b>0,05 gwei</b></span>
+  <span><span class="dot" id="liveDot"></span> <b id="liveLabel">LIVE</b> · <span id="liveTime">memuat…</span></span>
+  <div class="ticker" aria-label="Harga live">
+    <span>BTC <b id="tkBtc">$64.912</b> <span id="tkBtcChg" class="up">+0,07%</span></span>
+    <span>ETH <b id="tkEth">$1.824</b> <span id="tkEthChg" class="up">+0,23%</span></span>
+    <span>BNB <b id="tkBnb">$597,73</b> <span id="tkBnbChg" class="up">+1,06%</span></span>
+    <span>SOL <b id="tkSol">$74,94</b> <span id="tkSolChg" class="up">+0,04%</span></span>
+    <span>ETH gas <b id="tkEthGas">0,15 gwei</b></span>
+    <span>BSC gas <b id="tkBscGas">0,05 gwei</b></span>
   </div>
-  <span style="color:var(--muted)">Sumber: Binance Futures via Crypffalo Morning Brief 18/11, Finnhub, GasNow &amp; Satview, BNB Chain docs</span>
+  <span style="color:var(--muted)">Sumber live: CoinGecko &amp; RPC publik tiap chain · bila offline, tampil snapshot 19 Nov 2026</span>
 </div></div>
 
 <div class="wrap">
   <header class="hero">
     <h1>Semua asetmu, semua chain,<br>satu layar.</h1>
-    <p>Dashboard pelacak portofolio lintas jaringan (Ethereum, BNB Chain, Base, Solana, dan lainnya) lengkap dengan riwayat transaksi, peringatan pergerakan whale, dan kalkulator perbandingan biaya gas antar-chain. Harga &amp; gas di halaman ini adalah <strong>snapshot tertanggal 19 November 2026</strong> dari sumber publik — bukan feed live.</p>
+    <p>Dashboard pelacak portofolio lintas jaringan (Ethereum, BNB Chain, Base, Solana, dan lainnya) lengkap dengan riwayat transaksi, peringatan pergerakan whale, dan kalkulator perbandingan biaya gas antar-chain. Harga &amp; gas di halaman ini <strong>live</strong> — diperbarui otomatis dari CoinGecko dan RPC publik tiap chain. Bila koneksi ke sumber live gagal, halaman memakai snapshot terverifikasi 19 November 2026 sebagai cadangan.</p>
   </header>
 
   <section class="kpis" aria-label="Ringkasan">
     <div class="kpi"><div class="label">Total portofolio (contoh)</div><div class="val" id="kpiTotal">$0</div><div class="sub" id="kpiAssets">— aset · — chain</div></div>
-    <div class="kpi"><div class="label">Termurah (snapshot terverifikasi)</div><div class="val">BNB Chain</div><div class="sub">0,05 gwei · transfer &lt; $0,001 · blok 0,45 dtk — di antara chain terverifikasi; kalkulator di bawah juga membandingkan estimasi chain lain</div></div>
-    <div class="kpi"><div class="label">Gas Ethereum</div><div class="val">0,15 gwei</div><div class="sub">Transfer ETH ≈ $0,006 — level terendah 2026</div></div>
-    <div class="kpi"><div class="label">Whale alert aktif</div><div class="val">4 sinyal</div><div class="sub">Terbesar: 60.000 ETH ≈ $108,8 jt</div></div>
+    <div class="kpi"><div class="label">Termurah (live)</div><div class="val" id="kpiCheapVal">BNB Chain</div><div class="sub" id="kpiCheapSub">0,05 gwei · transfer &lt; $0,001 · blok 0,45 dtk</div></div>
+    <div class="kpi"><div class="label">Gas Ethereum</div><div class="val" id="kpiEthGasVal">0,15 gwei</div><div class="sub" id="kpiEthGasSub">Transfer ETH ≈ $0,006</div></div>
+    <div class="kpi"><div class="label">Whale alert aktif</div><div class="val" id="kpiWhaleVal">4 sinyal</div><div class="sub" id="kpiWhaleSub">Terbesar: 60.000 ETH ≈ $108,8 jt</div></div>
   </section>
 
   <div class="grid2">
@@ -144,7 +144,7 @@ footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padd
             <div style="flex:0 0 auto;align-self:end"><button class="btn" type="submit">+ Tambah</button></div>
           </div>
         </form>
-        <div class="note">Harga acuan snapshot 19 Nov 2026: BTC $64.912 · ETH $1.824 · BNB $597,73 · SOL $74,94 · XRP $0,97 · USDT $1,00. Untuk cek saldo alamat asli, tempel alamatmu di penelusur di bawah — tautannya membuka explorer resmi.</div>
+        <div class="note" id="priceNote">Harga live dari CoinGecko (diperbarui tiap 30 detik). Cadangan bila offline — snapshot 19 Nov 2026: BTC $64.912 · ETH $1.824 · BNB $597,73 · SOL $74,94 · XRP $0,97 · USDT $1,00. Untuk cek saldo alamat asli, tempel alamatmu di penelusur di bawah — tautannya membuka explorer resmi.</div>
         <h3>Cek alamat di explorer</h3>
         <form id="addrForm" class="formrow">
           <div style="flex:2"><label class="flabel" for="addrInput">Alamat wallet (0x… atau Solana)</label><input id="addrInput" placeholder="0x… / alamat Solana" autocomplete="off"></div>
@@ -157,7 +157,7 @@ footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padd
       <!-- GAS CALCULATOR -->
       <section class="card" id="gas">
         <h2>Kalkulator &amp; Perbandingan Gas Fee</h2>
-        <p class="desc">Pilih jenis transaksi — biaya di semua chain dihitung ulang dari gas snapshot. Rumus EVM: <span class="mono">biaya = gas unit × harga gas (gwei) × 10⁻⁹ × harga koin native</span>.</p>
+        <p class="desc">Pilih jenis transaksi — biaya di semua chain dihitung ulang dari harga gas <b>live</b> (RPC publik, refresh tiap 15 detik). Rumus EVM: <span class="mono">biaya = gas unit × harga gas (gwei) × 10⁻⁹ × harga koin native</span>.</p>
         <div class="formrow">
           <div><label class="flabel" for="txType">Jenis transaksi</label>
             <select id="txType">
@@ -185,7 +185,7 @@ footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padd
           <tbody id="gasTable"></tbody>
         </table>
         </div>
-        <div class="note">Ethereum 0,15 gwei &amp; BSC 0,05 gwei adalah angka terverifikasi snapshot 19 Nov 2026 (Satview/GasNow; BNB Chain docs — BSC tanpa base fee, floor validator 0,05 gwei). Chain lain ditandai <b>estimasi tipikal</b> karena tidak terverifikasi pada snapshot ini. Solana memakai model fee tetap per tanda tangan (±5.000 lamport + priority fee), bukan gwei.</div>
+        <div class="note" id="gasNote">Harga gas diambil live dari RPC publik tiap chain (refresh tiap 15 detik). Bila RPC suatu chain tidak merespons, dipakai angka snapshot 19 Nov 2026 dan statusnya tertulis "Snapshot" — Ethereum 0,15 gwei &amp; BSC 0,05 gwei terverifikasi (Satview/GasNow; BNB Chain docs). Solana memakai model fee tetap per tanda tangan (±5.000 lamport + priority fee), bukan gwei.</div>
       </section>
 
       <!-- TX HISTORY -->
@@ -228,7 +228,7 @@ footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padd
       <!-- WHALE ALERT -->
       <section class="card" id="whale">
         <h2>🐋 Whale Alert</h2>
-        <p class="desc">Pergerakan dompet besar yang dilaporkan pemantau on-chain pada November 2026. Klik sumber untuk detailnya.</p>
+        <p class="desc" id="whaleDesc">Pergerakan besar terbaru di jaringan Ethereum (Blockchair, dimuat saat halaman dibuka). Bila feed live tidak tersedia, ditampilkan snapshot November 2026. Klik sumber untuk detailnya.</p>
         <div class="filters" role="group" aria-label="Saring whale alert berdasarkan nilai">
           <button data-min="0" class="active">Semua</button>
           <button data-min="20000000">≥ $20 jt</button>
@@ -254,7 +254,7 @@ footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padd
   </div>
 
   <footer>
-    <p><strong>Tentang data:</strong> Harga BTC/ETH/BNB/SOL adalah snapshot 19 Nov 2026 06:37 UTC (Finnhub) dan brief pagi 18 Nov 2026 (Crypffalo, dari Binance Futures/OKX/Bybit/Hyperliquid). Gas Ethereum dari Satview &amp; GasNow (19 Nov 2026); gas BSC dari dokumentasi &amp; tracker BNB Chain (0,05 gwei, 19 Nov 2026). Whale alert dari Lookonchain via InvestingLive (19 Nov 2026) dan Whale Alert via U.Today/The Defiant. Portofolio &amp; riwayat transaksi adalah data contoh yang bisa kamu edit — halaman ini tidak terhubung ke wallet atau API live mana pun, dan bukan saran finansial.</p>
+    <p><strong>Tentang data:</strong> Harga live dari CoinGecko (refresh 30 detik); gas live dari RPC publik tiap chain (refresh 15 detik); whale alert live dari Blockchair (transaksi Ethereum bernilai besar, dimuat saat halaman dibuka). Bila sumber live tidak merespons, halaman memakai snapshot terverifikasi 19 Nov 2026 sebagai cadangan (harga Finnhub/Crypffalo; gas Satview/GasNow &amp; BNB Chain docs; whale Lookonchain via InvestingLive). Portofolio &amp; riwayat transaksi adalah data contoh yang bisa kamu edit — halaman ini tidak terhubung ke wallet mana pun, dan bukan saran finansial.</p>
     <p>Sumber: <a href="https://investinglive.com/cryptocurrency/eth-whales-keep-buying-through-the-slide-while-bitcoin-whales-send-coins-to-exchanges/" target="_blank" rel="noopener">InvestingLive — whale ETH vs BTC</a> · <a href="https://chaingate.dev/learn/bnb-chain-jenner-hardfork" target="_blank" rel="noopener">ChainGate — BNB Chain Jenner &amp; gas 0,05 gwei</a> · <a href="https://chainscorelabs.com/fees/bnb-chain" target="_blank" rel="noopener">ChainScore Labs — biaya BNB Chain</a></p>
   </footer>
 </div>
@@ -368,7 +368,7 @@ function renderGas(){
       "<td class='num'>"+r.nativeAmt.toFixed(6)+" "+r.ch.native+"</td>"+
       "<td class='num'><b>"+fmtUSD(r.usd)+"</b></td>"+
       "<td class='num hide-m'>"+r.ch.block+"</td>"+
-      "<td>"+(r.ch.verified?"<span class='badge badge-green'>Snapshot terverifikasi</span>":"<span class='badge badge-amber'>Estimasi tipikal</span>")+"</td>";
+      "<td>"+(r.ch.live?"<span class='badge badge-green'>Live</span>":(r.ch.verified?"<span class='badge badge-amber'>Snapshot</span>":"<span class='badge badge-amber'>Estimasi tipikal</span>"))+"</td>";
     tb.appendChild(tr);
   });
 }
@@ -465,6 +465,137 @@ document.getElementById("addrForm").addEventListener("submit",function(e){
 });
 
 renderHoldings(); renderGas(); renderWhales(0); renderTxs();
+</script>
+<script>
+/* ===== LIVE DATA (CoinGecko + RPC publik + Blockchair) ===== */
+var CG_IDS = {BTC:"bitcoin",ETH:"ethereum",BNB:"binancecoin",SOL:"solana",XRP:"ripple",USDT:"tether",AVAX:"avalanche-2",POL:"polygon-ecosystem-token"};
+var GAS_RPC = {
+  "Ethereum":"https://ethereum-rpc.publicnode.com",
+  "BNB Chain":"https://bsc-dataseed.binance.org",
+  "Base":"https://mainnet.base.org",
+  "Arbitrum One":"https://arbitrum-one-rpc.publicnode.com",
+  "Polygon":"https://polygon-bor-rpc.publicnode.com",
+  "Avalanche C-Chain":"https://avalanche-c-chain-rpc.publicnode.com"
+};
+var liveState = {prices:false, gas:{}, lastUpdate:null};
+function wibTime(d){ return d.toLocaleString("id-ID",{timeZone:"Asia/Jakarta",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit",second:"2-digit"})+" WIB"; }
+function setLiveLabel(){
+  var el=document.getElementById("liveLabel"), t=document.getElementById("liveTime");
+  var anyLive = liveState.prices || Object.keys(liveState.gas).some(function(k){return liveState.gas[k];});
+  if(anyLive){ el.textContent="LIVE"; document.getElementById("liveDot").style.background="var(--accent2)"; }
+  else { el.textContent="SNAPSHOT (offline)"; document.getElementById("liveDot").style.background="var(--amber)"; }
+  if(liveState.lastUpdate) t.textContent="update terakhir "+wibTime(liveState.lastUpdate);
+  else t.textContent="snapshot 19 Nov 2026";
+}
+function chgHtml(v){ return (v>=0?"+":"")+v.toFixed(2)+"%"; }
+async function fetchPrices(){
+  try{
+    var ids=Object.keys(CG_IDS).map(function(k){return CG_IDS[k];}).join(",");
+    var r=await fetch("https://api.coingecko.com/api/v3/simple/price?ids="+ids+"&vs_currencies=usd&include_24hr_change=true",{signal:AbortSignal.timeout(10000)});
+    if(!r.ok) throw new Error("cg "+r.status);
+    var j=await r.json();
+    var map={BTC:"bitcoin",ETH:"ethereum",BNB:"binancecoin",SOL:"solana",XRP:"ripple",USDT:"tether"};
+    Object.keys(map).forEach(function(sym){
+      var d=j[map[sym]]; if(d && d.usd){ PRICES[sym].price=d.usd; if(typeof d.usd_24h_change==="number") PRICES[sym].chg=d.usd_24h_change; }
+    });
+    var avax=j["avalanche-2"], pol=j["polygon-ecosystem-token"];
+    CHAINS.forEach(function(ch){
+      if(ch.name==="Avalanche C-Chain" && avax && avax.usd) ch.nprice=avax.usd;
+      if(ch.name==="Polygon" && pol && pol.usd) ch.nprice=pol.usd;
+      if(ch.name==="Ethereum"||ch.name==="Base"||ch.name==="Arbitrum One") ch.nprice=PRICES.ETH.price;
+      if(ch.name==="BNB Chain") ch.nprice=PRICES.BNB.price;
+      if(ch.name==="Solana") ch.nprice=PRICES.SOL.price;
+    });
+    liveState.prices=true; liveState.lastUpdate=new Date();
+    var tk={BTC:"tkBtc",ETH:"tkEth",BNB:"tkBnb",SOL:"tkSol"}, tkc={BTC:"tkBtcChg",ETH:"tkEthChg",BNB:"tkBnbChg",SOL:"tkSolChg"};
+    Object.keys(tk).forEach(function(sym){
+      var e=document.getElementById(tk[sym]); if(e) e.textContent=fmtUSD(PRICES[sym].price);
+      var c=document.getElementById(tkc[sym]); if(c){ c.textContent=chgHtml(PRICES[sym].chg); c.className=PRICES[sym].chg>=0?"up":"down"; }
+    });
+    document.getElementById("priceNote").textContent="Harga live dari CoinGecko — terakhir diperbarui "+wibTime(liveState.lastUpdate)+". Cadangan bila offline: snapshot 19 Nov 2026.";
+    renderHoldings(); renderGas();
+  }catch(err){ liveState.prices=false; }
+  setLiveLabel();
+}
+async function rpcGasPrice(url){
+  var r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_gasPrice",params:[]}),signal:AbortSignal.timeout(10000)});
+  if(!r.ok) throw new Error("rpc "+r.status);
+  var j=await r.json(); if(j.error||!j.result) throw new Error("rpc err");
+  return Number(BigInt(j.result))/1e9;
+}
+async function fetchGas(){
+  var jobs=CHAINS.filter(function(ch){return GAS_RPC[ch.name];}).map(async function(ch){
+    try{ var g=await rpcGasPrice(GAS_RPC[ch.name]); if(g>0){ ch.gwei=g; ch.live=true; liveState.gas[ch.name]=true; } }
+    catch(e){ ch.live=false; liveState.gas[ch.name]=false; }
+  });
+  await Promise.all(jobs);
+  var eth=CHAINS[0], bsc=CHAINS[1];
+  var e1=document.getElementById("tkEthGas"); if(e1) e1.textContent=eth.gwei.toFixed(2)+" gwei";
+  var e2=document.getElementById("tkBscGas"); if(e2) e2.textContent=bsc.gwei.toFixed(2)+" gwei";
+  var units=+document.getElementById("gasUnits").value||21000;
+  var ethCost=gasCost(eth,units);
+  document.getElementById("kpiEthGasVal").textContent=eth.gwei.toFixed(2)+" gwei";
+  document.getElementById("kpiEthGasSub").textContent="Transfer ETH ≈ "+fmtUSD(ethCost.usd)+(eth.live?" · live":" · snapshot");
+  var rows=CHAINS.map(function(ch){return {ch:ch,usd:gasCost(ch,units).usd};});
+  var cheap=rows.slice().sort(function(a,b){return a.usd-b.usd;})[0];
+  document.getElementById("kpiCheapVal").textContent=cheap.ch.name;
+  document.getElementById("kpiCheapSub").textContent=cheap.ch.gwei===null?"fee tetap · transfer ≈ "+fmtUSD(cheap.usd):cheap.ch.gwei.toFixed(2)+" gwei · transfer ≈ "+fmtUSD(cheap.usd)+(cheap.ch.live?" · live":" · snapshot");
+  liveState.lastUpdate=new Date();
+  renderGas();
+  setLiveLabel();
+}
+function shortAddr(a){ return a.length>13? a.slice(0,6)+"…"+a.slice(-4):a; }
+var LIVE_WHALES=null;
+var origRenderWhales=window.renderWhales;
+window.renderWhales=function(min){
+  if(LIVE_WHALES && LIVE_WHALES.length){
+    var list=document.getElementById("whaleList"); list.innerHTML="";
+    var shown=0;
+    LIVE_WHALES.forEach(function(w){
+      if(w.usd<min) return; shown++;
+      var d=document.createElement("article"); d.className="whale";
+      d.innerHTML="<div style='display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:start'><span class='amt'>"+w.amt+"</span><span class='sev sev-"+w.sev+"'>"+w.sevLabel+"</span></div>"+
+        "<div style='font-weight:700'>≈ "+fmtUSD(w.usd)+"</div>"+
+        "<p class='meta' style='margin:6px 0'>"+w.from+" → "+w.to+"<br>"+w.chain+" · "+w.when+"</p>"+
+        "<p style='margin:0 0 8px;font-size:13.5px'>"+w.note+"</p>"+
+        "<a href='"+w.src+"' target='_blank' rel='noopener' style='font-size:13px;font-weight:600'>Lihat di Etherscan →</a>";
+      list.appendChild(d);
+    });
+    if(!shown) list.innerHTML="<p class='empty'>Tidak ada alert di atas ambang ini.</p>";
+    return;
+  }
+  origRenderWhales(min);
+};
+async function fetchWhales(){
+  var desc=document.getElementById("whaleDesc");
+  try{
+    var today=new Date().toISOString().slice(0,10);
+    var r=await fetch("https://api.blockchair.com/ethereum/transactions?q=time("+today+"..)&limit=8&s=value(desc)",{signal:AbortSignal.timeout(12000)});
+    if(!r.ok) throw new Error("bc "+r.status);
+    var j=await r.json(); var rows=(j.data||[]);
+    if(!rows.length) throw new Error("empty");
+    var ethPrice=PRICES.ETH.price||1824;
+    var items=[], biggest=0;
+    rows.forEach(function(tx){
+      var ethVal=0; try{ ethVal=Number(BigInt(tx.value||"0"))/1e18; }catch(e){ ethVal=Number(tx.value||0)/1e18; }
+      var usd=ethVal*ethPrice; if(usd>biggest) biggest=usd;
+      var sev=usd>=100000000?["high","Sangat besar"]:usd>=50000000?["med","Besar"]:["low","Pantau"];
+      var when=tx.time? wibTime(new Date(tx.time.replace(" ","T")+"Z")) : "baru saja";
+      items.push({amt:ethVal.toLocaleString("en-US",{maximumFractionDigits:1})+" ETH", usd:usd, from:shortAddr(tx.sender||"?"), to:shortAddr(tx.recipient||"?"), chain:"Ethereum · blok "+(tx.block_id||"—"), when:when, sev:sev[0], sevLabel:sev[1], note:"Transfer on-chain bernilai besar — klik tautan untuk detail transaksi di Etherscan.", src:"https://etherscan.io/tx/"+tx.hash});
+    });
+    LIVE_WHALES=items;
+    desc.textContent="Transfer ETH terbesar hari ini (Blockchair, live) — diperbarui saat halaman dibuka. Klik sumber untuk detailnya.";
+    document.getElementById("kpiWhaleVal").textContent=rows.length+" sinyal";
+    document.getElementById("kpiWhaleSub").textContent="Terbesar: ≈ "+fmtUSD(biggest)+" · live";
+    var active=document.querySelector(".filters button.active");
+    window.renderWhales(active? +active.getAttribute("data-min"):0);
+  }catch(e){
+    desc.textContent="Feed whale live tidak tersedia saat ini — menampilkan snapshot November 2026.";
+  }
+}
+fetchPrices(); fetchGas(); fetchWhales();
+setInterval(fetchPrices,30000);
+setInterval(fetchGas,15000);
 </script>
 </body>
 </html>
